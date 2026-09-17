@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">MiPokedex_zamudioRamon</string>
+    <string name="pikachu">Pikachu</string>
+    <string name="height">Altura</string>
+    <string name="hability">Habilidad</string>
+    <string name="weight">Peso</string>
+    <string name="spec">Elec- Estática</string>
+    <string name="desc">Cuando se enfada, este Pokémon\n descarga la  energía que almacena\n en el interior de las bolsas de las\n mejillas</string>
+    
+    
+    
+</resources>
