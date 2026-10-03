@@ -15,3 +15,5 @@ val yellow = Color(0xFFFFDB58)
 val milk = Color(0xFFFDFFF5)
 
 val dark = Color(0xFF37323E)
+
+val Green = Color(0xFF81CA85)
