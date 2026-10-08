@@ -1,4 +1,4 @@
-package zamudio.ramon.pokedexprueba.components
+package zamudio.ramon.pokedexprueba.view.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement

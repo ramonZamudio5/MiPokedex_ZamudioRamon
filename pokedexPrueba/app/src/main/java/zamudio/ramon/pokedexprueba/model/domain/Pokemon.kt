@@ -1,4 +1,4 @@
-package zamudio.ramon.pokedexprueba.domain
+package zamudio.ramon.pokedexprueba.model.domain
 
 data class Pokemon( val name: String,
                     val number: Number,

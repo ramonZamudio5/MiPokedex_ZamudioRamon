@@ -5,9 +5,10 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import zamudio.ramon.pokedexprueba.data.bulbasaur
-import zamudio.ramon.pokedexprueba.screens.MenuPokedexScreen
-import zamudio.ramon.pokedexprueba.screens.pokemonInfo
+import zamudio.ramon.pokedexprueba.model.data.getAntAndSig
+import zamudio.ramon.pokedexprueba.model.data.getPokemonByNumber
+import zamudio.ramon.pokedexprueba.view.screens.MenuPokedexScreen
+import zamudio.ramon.pokedexprueba.view.screens.pokemonInfo
 
 @Composable
 fun Myapp(innerPadding : PaddingValues){
@@ -17,7 +18,8 @@ fun Myapp(innerPadding : PaddingValues){
             MenuPokedexScreen(innerPadding, onNavigateDetail = {id->navcController.navigate(route = PokemonDetail(id))})
         }
         composable<PokemonDetail> {
-
+            val pokemon = it.arguments?.getInt("pokemon") ?:-1
+            pokemonInfo(getPokemonByNumber(pokemon), getAntAndSig(pokemon).second,getAntAndSig(pokemon).first,innerPadding)
         }
     }
 

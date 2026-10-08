@@ -1,8 +1,7 @@
-package zamudio.ramon.pokedexprueba.data
+package zamudio.ramon.pokedexprueba.model.data
 
 import zamudio.ramon.pokedexprueba.R
-import zamudio.ramon.pokedexprueba.domain.Pokemon
-import zamudio.ramon.pokedexprueba.navigation.PokemonDetail
+import zamudio.ramon.pokedexprueba.model.domain.Pokemon
 
 
 val bulbasaur = Pokemon(
@@ -47,4 +46,11 @@ fun getFavoritesPokemons(): List<Pokemon>{
 
 fun getPokemonByNumber(id:Int): Pokemon{
     return pokemonList.filter{ it.number == id }.first()
+}
+
+fun getAntAndSig(id: Int):Pair<Pokemon, Pokemon>{
+    val index = pokemonList.indexOf(getPokemonByNumber(id))
+    val antes = pokemonList.get(index - 1)
+    val despues = pokemonList.get(index + 1)
+    return Pair(antes,despues)
 }
