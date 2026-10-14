@@ -37,7 +37,7 @@ fun PokemonRow(pokemon : Pokemon){
         Column(Modifier.fillMaxWidth(0.70f),verticalArrangement = Arrangement.spacedBy(2.dp)) {
             Text(pokemon.name,style = MaterialTheme.typography.labelLarge)
             Text(pokemon.descripcion, fontSize = 10.sp)
-            Row(Modifier.fillMaxWidth(.85f), horizontalArrangement = Arrangement.SpaceBetween) {
+            Row(Modifier.fillMaxWidth(.90f), horizontalArrangement = Arrangement.SpaceBetween) {
                 Text("height: ${pokemon.height}",style = MaterialTheme.typography.labelMedium)
                 Text("Wheight: ${pokemon.weight}",style = MaterialTheme.typography.labelMedium)
             }

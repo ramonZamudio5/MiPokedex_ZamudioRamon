@@ -34,7 +34,7 @@ val pokemonList = listOf(Pokemon(
     Pokemon("Snorlax", 143, "Normal", "Its stomach is said to be so strong that it can even eat moldy or rotten food.", 2.1f, 460.0f, false, "Immunity", R.drawable.snorlax),
     Pokemon("Mewtwo", 150, "Psych", "It was created by a scientist after years of horrific gene-splicing and DNA engineering experiments.", 2.0f, 122.0f, true, "Pressure", R.drawable.mewtwo),
     Pokemon("Lucario", 448, "Fight", "By catching the aura emanating from others, it can read their thoughts and movements.", 1.2f, 54.0f, true, "Steadfast", R.drawable.lucario),
-    Pokemon("Mimikyu", 778, "Ghost", "Its actual appearance is unknown. A scholar who saw what was under its rag overwhelmed by terror and died.", 0.2f, 0.7f, false, "Disguise", R.drawable.mimikyu)
+    Pokemon("Mimikyu", 778, "Ghost", "Its actual appearance is unknown. A scholar who saw what was under its rag overwhelmed by terror and died.", 0.2f, 0.7f, true, "Disguise", R.drawable.mimikyu)
 )
 
 
@@ -48,9 +48,18 @@ fun getPokemonByNumber(id:Int): Pokemon{
     return pokemonList.filter{ it.number == id }.first()
 }
 
-fun getAntAndSig(id: Int):Pair<Pokemon, Pokemon>{
+fun getAntAndSig(id: Int): Pair<Pokemon, Pokemon> {
     val index = pokemonList.indexOf(getPokemonByNumber(id))
-    val antes = pokemonList.get(index - 1)
-    val despues = pokemonList.get(index + 1)
-    return Pair(antes,despues)
+    val antes = if (index == 0) {
+        pokemonList.last()
+    } else {
+        pokemonList[index - 1]
+    }
+    val despues = if (index == pokemonList.lastIndex) {
+        pokemonList.first()
+    } else {
+        pokemonList[index + 1]
+    }
+
+    return Pair(antes, despues)
 }

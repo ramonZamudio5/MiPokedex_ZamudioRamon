@@ -6,4 +6,8 @@ import kotlinx.serialization.Serializable
 object PokemonList;
 
 @Serializable
+object PokemonHunt
+
+
+@Serializable
 data class PokemonDetail(val pokemon: Int)
