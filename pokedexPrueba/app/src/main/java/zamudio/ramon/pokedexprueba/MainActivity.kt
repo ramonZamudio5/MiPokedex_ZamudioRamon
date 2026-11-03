@@ -10,33 +10,25 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import zamudio.ramon.pokedexprueba.model.data.Users
 import zamudio.ramon.pokedexprueba.navigation.Myapp
 import zamudio.ramon.pokedexprueba.ui.theme.PokedexPruebaTheme
+import zamudio.ramon.pokedexprueba.view.screens.LoginScreen
+import zamudio.ramon.pokedexprueba.viewModel.UserViewModel
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val users = Users(this)
+        val usersViewModel = UserViewModel(users)
         enableEdgeToEdge()
         setContent {
             PokedexPruebaTheme {
-                Myapp(PaddingValues(10.dp,15.dp))
+                Myapp(PaddingValues(10.dp,15.dp),usersViewModel)
             }
         }
     }
 }
 
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
 
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    PokedexPruebaTheme {
-        Greeting("Android")
-    }
-}
+

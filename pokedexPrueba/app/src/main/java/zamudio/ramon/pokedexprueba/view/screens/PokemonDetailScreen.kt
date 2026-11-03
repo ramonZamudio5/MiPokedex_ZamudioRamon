@@ -6,6 +6,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -36,8 +37,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import zamudio.ramon.pokedexprueba.model.data.bulbasaur
+import zamudio.ramon.pokedexprueba.model.data.getAntAndSig
 import zamudio.ramon.pokedexprueba.model.data.pokemonList
 import zamudio.ramon.pokedexprueba.model.domain.Pokemon
+import zamudio.ramon.pokedexprueba.navigation.PokemonDetail
 import zamudio.ramon.pokedexprueba.ui.theme.DarkGray
 import zamudio.ramon.pokedexprueba.ui.theme.OffWhite
 import zamudio.ramon.pokedexprueba.utilities.ColorPokemon
@@ -144,8 +147,12 @@ fun siguentesPokes(pokeAnterior: Pokemon, pokeSig: Pokemon){
             Image(painter = painterResource(pokeAnterior.image), contentDescription = pokeAnterior.name,
                 Modifier.size(115.dp))
             Text(pokeAnterior.name+" #${pokeAnterior.number}", Modifier.align(Alignment.CenterHorizontally))
+
             Image(painter = painterResource(R.drawable.fecha_izq), contentDescription = "flecha_izq",
-                Modifier.size(45.dp).align(alignment = Alignment.Start))
+                Modifier.size(45.dp).align(alignment = Alignment.Start).clickable{
+
+
+                })
         }
         Column{
             Image(painter = painterResource(pokeSig.image), contentDescription = pokeSig.name,

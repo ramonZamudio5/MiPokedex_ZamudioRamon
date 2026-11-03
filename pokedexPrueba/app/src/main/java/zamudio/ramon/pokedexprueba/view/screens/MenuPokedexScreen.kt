@@ -17,7 +17,9 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Button
+import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SegmentedButtonDefaults.Icon
 import androidx.compose.material3.Switch
 import androidx.compose.material3.SwitchDefaults
@@ -45,66 +47,76 @@ import zamudio.ramon.pokedexprueba.ui.theme.Green
 import zamudio.ramon.pokedexprueba.ui.theme.PokedexPruebaTheme
 import zamudio.ramon.pokedexprueba.view.components.MenuPokedex
 import zamudio.ramon.pokedexprueba.view.components.menupokedex
-
-class MenuPokedexScreen : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContent {
-            PokedexPruebaTheme {
-                MenuPokedexScreen(PaddingValues(10.dp,15.dp), onNavigateDetail = {}, onNavigateHunt = {})
-            }
-        }
-    }
-}
-
 @Composable
-fun MenuPokedexScreen(innerPadding : PaddingValues, onNavigateDetail: (id:Int)->Unit, onNavigateHunt:()-> Unit) {
+fun MenuPokedexScreen(innerPadding : PaddingValues, onNavigateDetail: (id:Int)->Unit, onNavigateHunt:()-> Unit, logout:()-> Unit) {
     var grid by remember { mutableStateOf(false) }
-    Column(modifier = Modifier.fillMaxSize().padding(16.dp)) {
-        Row(Modifier.fillMaxWidth(),horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
-            Text("Favorite Pokemon's")
-            Button(onClick = {onNavigateHunt()}) {
-                Text("Catch New")
+    Scaffold(
+        floatingActionButton = {
+            FloatingActionButton(
+                onClick = { onNavigateHunt() }
+            ) {
+               Text("Catch New")
             }
         }
-        Text(text = "Mis Favoritos", fontSize = 22.sp, fontWeight = FontWeight.Bold, modifier = Modifier.padding(bottom = 10.dp))
-        FavoritesRows(getFavoritesPokemons(),onNavigateDetail)
-        Spacer(modifier = Modifier.height(20.dp))
-        Text(text = "Todos mis Pokemon's", fontSize = 22.sp, fontWeight = FontWeight.Bold, modifier = Modifier.padding(bottom = 10.dp))
-        Switch(checked = grid, onCheckedChange = { grid = it },
-            colors = SwitchDefaults.colors(
-                checkedThumbColor = Green,
-                checkedTrackColor = LightGray,
-                uncheckedThumbColor = Blue,
-                uncheckedTrackColor = LightGray,
-                uncheckedBorderColor = Transparent
-            ),
-            thumbContent = if (grid) {
-                {
-                    Icon(painterResource(id = R.drawable.gridd), contentDescription = "grid icon",
-                        modifier = Modifier.size(SwitchDefaults.IconSize))
-                }
-            } else {
-                {
-                    Icon(painterResource(id = R.drawable.rows), contentDescription = "list icon",
-                        modifier = Modifier.size(SwitchDefaults.IconSize))
+    ) { scaffoldPadding ->
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(scaffoldPadding)
+                .padding(horizontal = 16.dp)
+        ) {
+            Row(
+                Modifier.fillMaxWidth().padding(top = 16.dp),
+                horizontalArrangement = Arrangement.End,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Button(onClick = { logout() }) {
+                    Text("Logout")
                 }
             }
-        )
-        if (grid) {
-            PokedexGrid(pokemonList)
-        } else {
-            MenuPokedex(pokemonList)
+
+            Text(text = "Mis Favoritos", fontSize = 22.sp, fontWeight = FontWeight.Bold, modifier = Modifier.padding(bottom = 10.dp))
+            FavoritesRows(getFavoritesPokemons(), onNavigateDetail)
+
+            Spacer(modifier = Modifier.height(20.dp))
+
+            Text(text = "Todos mis Pokemon's", fontSize = 22.sp, fontWeight = FontWeight.Bold, modifier = Modifier.padding(bottom = 10.dp))
+
+            Switch(
+                checked = grid,
+                onCheckedChange = { grid = it },
+                colors = SwitchDefaults.colors(
+                    checkedThumbColor = Green,
+                    checkedTrackColor = LightGray,
+                    uncheckedThumbColor = Blue,
+                    uncheckedTrackColor = LightGray,
+                    uncheckedBorderColor = Transparent
+                ),
+                thumbContent = if (grid) {
+                    {
+                        Icon(painterResource(id = R.drawable.gridd), contentDescription = "grid icon",
+                            modifier = Modifier.size(SwitchDefaults.IconSize))
+                    }
+                } else {
+                    {
+                        Icon(painterResource(id = R.drawable.rows), contentDescription = "list icon",
+                            modifier = Modifier.size(SwitchDefaults.IconSize))
+                    }
+                }
+            )
+            if (grid) {
+                PokedexGrid(pokemonList)
+            } else {
+                MenuPokedex(pokemonList)
+            }
         }
     }
-
 }
 
 
 @Preview(showBackground = true)
 @Composable
 fun previewMenuPokedex(){
-    MenuPokedexScreen(PaddingValues(10.dp,15.dp), onNavigateDetail = {}, onNavigateHunt = {})
+    MenuPokedexScreen(PaddingValues(10.dp,15.dp), onNavigateDetail = {}, onNavigateHunt = {},{})
 }
 
