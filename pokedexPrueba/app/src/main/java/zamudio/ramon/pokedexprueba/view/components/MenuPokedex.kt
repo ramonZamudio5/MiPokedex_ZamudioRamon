@@ -19,22 +19,11 @@ import zamudio.ramon.pokedexprueba.model.data.pokemonList
 import zamudio.ramon.pokedexprueba.model.domain.Pokemon
 import zamudio.ramon.pokedexprueba.ui.theme.PokedexPruebaTheme
 
-class menupokedex : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContent {
-            PokedexPruebaTheme {
-                MenuPokedex(pokemonList)
-            }
-        }
-    }
-}
 @Composable
-fun MenuPokedex(pokemonList:List<Pokemon>){
+fun MenuPokedex(pokemonList:List<Pokemon>,onNavigationDetail:(id:Int)-> Unit){
     LazyColumn() {
         items(pokemonList){
-                pokemon -> PokemonRow(pokemon)
+                pokemon -> PokemonRow(pokemon, onNavigationDetail)
         }
     }
 }
@@ -49,11 +38,11 @@ fun FavoritesRows(favoritesList:List<Pokemon>, onNavigateDetail : (id:Int)-> Uni
 }
 
 @Composable
-fun PokedexGrid(pokemonList:List<Pokemon>){
+fun PokedexGrid(pokemonList:List<Pokemon>,onNavigationDetail:(id:Int)-> Unit){
     LazyVerticalGrid(columns = GridCells.Fixed(3), contentPadding = PaddingValues(horizontal = 5.dp, vertical = 20.dp),
         horizontalArrangement = Arrangement.spacedBy(5.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
         items(pokemonList) {
-            pokemon -> PokemonCell(pokemon = pokemon)
+            pokemon -> PokemonCell(pokemon = pokemon,onNavigationDetail)
         }
     }
 }
@@ -61,5 +50,4 @@ fun PokedexGrid(pokemonList:List<Pokemon>){
 @Preview(showBackground = true)
 @Composable
 fun preview(){
-    PokedexGrid(pokemonList)
 }

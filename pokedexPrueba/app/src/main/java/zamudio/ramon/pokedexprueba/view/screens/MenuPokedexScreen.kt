@@ -1,10 +1,6 @@
 package zamudio.ramon.pokedexprueba.view.screens
 
-import android.os.Bundle
-import android.text.Layout
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.runtime.Composable
 import androidx.compose.foundation.layout.Column
@@ -19,8 +15,8 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Button
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.SegmentedButtonDefaults.Icon
 import androidx.compose.material3.Switch
 import androidx.compose.material3.SwitchDefaults
 import androidx.compose.material3.Text
@@ -44,11 +40,9 @@ import zamudio.ramon.pokedexprueba.model.data.getFavoritesPokemons
 import zamudio.ramon.pokedexprueba.model.data.pokemonList
 import zamudio.ramon.pokedexprueba.ui.theme.Blue
 import zamudio.ramon.pokedexprueba.ui.theme.Green
-import zamudio.ramon.pokedexprueba.ui.theme.PokedexPruebaTheme
 import zamudio.ramon.pokedexprueba.view.components.MenuPokedex
-import zamudio.ramon.pokedexprueba.view.components.menupokedex
 @Composable
-fun MenuPokedexScreen(innerPadding : PaddingValues, onNavigateDetail: (id:Int)->Unit, onNavigateHunt:()-> Unit, logout:()-> Unit) {
+fun MenuPokedexScreen(innerPadding : PaddingValues, onNavigateDetail: (id:Int)->Unit, onNavigateHunt:()-> Unit, logout:()-> Unit,onNavigateProfile:()->Unit) {
     var grid by remember { mutableStateOf(false) }
     Scaffold(
         floatingActionButton = {
@@ -65,6 +59,9 @@ fun MenuPokedexScreen(innerPadding : PaddingValues, onNavigateDetail: (id:Int)->
                 .padding(scaffoldPadding)
                 .padding(horizontal = 16.dp)
         ) {
+            IconButton({onNavigateProfile()}) {
+                Image(painterResource(R.drawable.ic_profile), contentDescription = "profile")
+            }
             Row(
                 Modifier.fillMaxWidth().padding(top = 16.dp),
                 horizontalArrangement = Arrangement.End,
@@ -105,9 +102,9 @@ fun MenuPokedexScreen(innerPadding : PaddingValues, onNavigateDetail: (id:Int)->
                 }
             )
             if (grid) {
-                PokedexGrid(pokemonList)
+                PokedexGrid(pokemonList, onNavigateDetail)
             } else {
-                MenuPokedex(pokemonList)
+                MenuPokedex(pokemonList,onNavigateDetail)
             }
         }
     }
@@ -117,6 +114,6 @@ fun MenuPokedexScreen(innerPadding : PaddingValues, onNavigateDetail: (id:Int)->
 @Preview(showBackground = true)
 @Composable
 fun previewMenuPokedex(){
-    MenuPokedexScreen(PaddingValues(10.dp,15.dp), onNavigateDetail = {}, onNavigateHunt = {},{})
+    MenuPokedexScreen(PaddingValues(10.dp,15.dp), onNavigateDetail = {}, onNavigateHunt = {},{},{})
 }
 

@@ -60,7 +60,7 @@ fun PokemonHuntScreen(innerPadding: PaddingValues,viewModel : PokemonViewmModel 
             LazyColumn() {
                 items(viewModel.capturedPokemon){
                     pokemon ->
-                    PokemonRow(pokemon)
+                    PokemonRow(pokemon,onNAvigateToDetail)
                 }
             }
         }

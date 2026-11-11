@@ -12,16 +12,19 @@ import zamudio.ramon.pokedexprueba.model.data.getPokemonByNumber
 import zamudio.ramon.pokedexprueba.view.screens.LoginScreen
 import zamudio.ramon.pokedexprueba.view.screens.MenuPokedexScreen
 import zamudio.ramon.pokedexprueba.view.screens.PokemonHuntScreen
+import zamudio.ramon.pokedexprueba.view.screens.ProfileSceen
 import zamudio.ramon.pokedexprueba.view.screens.pokemonInfo
+import zamudio.ramon.pokedexprueba.viewModel.PokemonDetailViewModel
 import zamudio.ramon.pokedexprueba.viewModel.UserViewModel
 
 @Composable
-fun Myapp(innerPadding : PaddingValues, userviewModel: UserViewModel){
+fun Myapp(innerPadding : PaddingValues, userviewModel: UserViewModel,pokemonDetailViewModel: PokemonDetailViewModel){
     val navcController = rememberNavController()
     val navigateToMenu = {
         navcController.navigate(PokemonList)
     }
     val navigateToDetail = {id: Int ->navcController.navigate(route = PokemonDetail(id))}
+    val navigatetoProfile = {navcController.navigate(Profile)}
     NavHost(navcController, startDestination = Login){
         composable<PokemonList>{
             MenuPokedexScreen(innerPadding, onNavigateDetail = navigateToDetail,
@@ -31,11 +34,11 @@ fun Myapp(innerPadding : PaddingValues, userviewModel: UserViewModel){
                         popUpTo(0) {
                             inclusive = true
                         }}
-                })
+                },navigatetoProfile)
         }
         composable<PokemonDetail> {
             val pokemon = it.arguments?.getInt("pokemon") ?:-1
-            pokemonInfo(getPokemonByNumber(pokemon), getAntAndSig(pokemon).second,getAntAndSig(pokemon).first,innerPadding)
+            pokemonInfo(pokemon, getAntAndSig(pokemon).second.number,getAntAndSig(pokemon).first.number,innerPadding,pokemonDetailViewModel)
         }
         composable<PokemonHunt>{
             PokemonHuntScreen(innerPadding, onNAvigateToDetail = navigateToDetail)
@@ -43,6 +46,8 @@ fun Myapp(innerPadding : PaddingValues, userviewModel: UserViewModel){
         composable<Login> {
             LoginScreen(innerPadding, userviewModel ,onNavigateToMenu = navigateToMenu)
         }
+        composable<Profile>{
+            ProfileSceen(innerPadding,userviewModel)
+        }
     }
-
 }

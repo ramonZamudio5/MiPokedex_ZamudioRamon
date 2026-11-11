@@ -25,13 +25,14 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import zamudio.ramon.pokedexprueba.model.data.pokemonList
 import zamudio.ramon.pokedexprueba.model.domain.Pokemon
 import zamudio.ramon.pokedexprueba.ui.theme.OffWhite
 import zamudio.ramon.pokedexprueba.utilities.ColorPokemon
 
 @Composable
-fun PokemonRow(pokemon : Pokemon){
-    Row(Modifier.fillMaxWidth().padding(10.dp), horizontalArrangement = Arrangement.SpaceBetween) {
+fun PokemonRow(pokemon : Pokemon,onNavigationDetail:(id:Int)-> Unit){
+    Row(Modifier.fillMaxWidth().padding(10.dp).clickable(true, onClick = {onNavigationDetail(pokemon.number as Int)}), horizontalArrangement = Arrangement.SpaceBetween) {
         Image(painterResource(pokemon.image), contentDescription = "${pokemon.name}+image",
             Modifier.width(80.dp).padding(10.dp))
         Column(Modifier.fillMaxWidth(0.70f),verticalArrangement = Arrangement.spacedBy(2.dp)) {
@@ -71,8 +72,8 @@ fun FavoritePokemon(pokemon : Pokemon,onNavigationDetail:(id:Int)-> Unit){
 }
 
 @Composable
-fun PokemonCell(pokemon:Pokemon){
-    Column(Modifier.padding(vertical = 15.dp).background(OffWhite),verticalArrangement = Arrangement.spacedBy(10.dp),) {
+fun PokemonCell(pokemon:Pokemon,onNavigationDetail:(id:Int)-> Unit){
+    Column(Modifier.padding(vertical = 15.dp).clickable(true, onClick = {onNavigationDetail(pokemon.number as Int)}).background(OffWhite),verticalArrangement = Arrangement.spacedBy(10.dp),) {
         Box(){
             Box(){
                 Image(painterResource(pokemon.image), contentDescription = "${pokemon.name}+image",
@@ -90,5 +91,4 @@ fun PokemonCell(pokemon:Pokemon){
 @Preview(showBackground = false)
 @Composable
 fun PokemonElementPreview(){
-   
 }
